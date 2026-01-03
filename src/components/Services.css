@@ -1,0 +1,291 @@
+/* =============================================
+   SERVICES COMPONENT STYLES - GET BUSINESS SETUP
+   ============================================= */
+
+.services {
+    position: relative;
+    padding: var(--space-24) 0;
+    background: var(--color-gray-50);
+    overflow: hidden;
+}
+
+/* Background */
+.services-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.services-bg-shape {
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(0, 48, 135, 0.05) 0%, transparent 50%);
+    border-radius: 50%;
+}
+
+/* Container */
+.services-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.services-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-12);
+}
+
+.services-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.services-label .label-line {
+    width: 40px;
+    height: 3px;
+    background: var(--color-secondary);
+}
+
+.services-label span:last-child {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-secondary);
+}
+
+.services-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-4);
+}
+
+.services-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    line-height: 1.7;
+}
+
+/* Tabs */
+.services-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+}
+
+.tab-btn {
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-primary);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--color-white);
+    border: 2px solid var(--color-gray-200);
+    border-radius: var(--radius-full);
+    color: var(--color-gray-600);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.tab-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.tab-btn.active {
+    background: var(--gradient-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+}
+
+/* Service Card */
+.service-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-gray-100);
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.service-icon {
+    font-size: 2rem;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+}
+
+.service-card:hover .service-icon {
+    background: linear-gradient(135deg, rgba(0, 48, 135, 0.1) 0%, rgba(227, 24, 55, 0.1) 100%);
+}
+
+.service-content {
+    flex: 1;
+}
+
+.service-card .service-title {
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-1);
+}
+
+.service-description {
+    font-size: var(--text-sm);
+    color: var(--color-gray-500);
+    margin: 0;
+}
+
+.service-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-400);
+    transition: all var(--transition-base);
+}
+
+.service-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.service-card:hover .service-arrow {
+    color: var(--color-primary);
+    transform: translateX(4px);
+}
+
+/* Additional Services */
+.additional-services {
+    background: var(--color-white);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-lg);
+}
+
+.additional-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+}
+
+.additional-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-base);
+}
+
+.additional-item:hover {
+    background: var(--color-gray-100);
+}
+
+.additional-bullet {
+    color: var(--color-secondary);
+    flex-shrink: 0;
+}
+
+.additional-bullet svg {
+    width: 10px;
+    height: 10px;
+}
+
+.additional-item span {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
+
+/* CTA */
+.services-cta {
+    text-align: center;
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.services-cta p {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-4);
+}
+
+/* Animation */
+.animate-service {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-service.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .additional-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .additional-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .services-tabs {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tab-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
