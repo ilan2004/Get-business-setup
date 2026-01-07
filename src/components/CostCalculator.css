@@ -1,0 +1,605 @@
+/* Calculator Overlay */
+.calculator-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Calculator Modal */
+.calculator-modal {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calculator-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.calculator-close:hover {
+    background: #f0f0f0;
+    color: #000;
+    transform: rotate(90deg);
+}
+
+/* Progress Bar */
+.calculator-progress {
+    padding: 30px 40px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.progress-bar {
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #e63946, #f77f00);
+    transition: width 0.4s ease;
+    border-radius: 10px;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 500;
+    color: #999;
+}
+
+.progress-steps span {
+    transition: color 0.3s ease;
+}
+
+.progress-steps span.active {
+    color: #e63946;
+}
+
+/* Calculator Step */
+.calculator-step {
+    padding: 40px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.step-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 10px;
+}
+
+.step-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Industry Grid */
+.industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.industry-card {
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.industry-card:hover {
+    background: #fff;
+    border-color: #e63946;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.15);
+}
+
+.industry-icon {
+    font-size: 36px;
+}
+
+.industry-name {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    color: #1f1f1f;
+}
+
+/* Business Type Grid */
+.business-type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.business-type-card {
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.business-type-card:hover {
+    background: #fff;
+    border-color: #e63946;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(230, 57, 70, 0.2);
+}
+
+.business-type-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 10px;
+}
+
+.type-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e63946;
+    margin-bottom: 10px;
+}
+
+.type-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.type-features {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.type-features li {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.type-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.btn-select {
+    width: 100%;
+    padding: 12px;
+    background: #e63946;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-select:hover {
+    background: #d62839;
+}
+
+/* Visa Selector */
+.visa-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.visa-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #e63946;
+    background: white;
+    color: #e63946;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.visa-btn:hover {
+    background: #e63946;
+    color: white;
+}
+
+.visa-input {
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+}
+
+.visa-input:focus {
+    border-color: #e63946;
+}
+
+.visa-total {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #e63946;
+    margin-top: 20px;
+}
+
+/* Additional Services */
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.service-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.service-checkbox:hover {
+    background: #fff;
+    border-color: #e63946;
+}
+
+.service-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    cursor: pointer;
+    accent-color: #e63946;
+}
+
+.service-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.service-name {
+    font-weight: 600;
+    color: #1f1f1f;
+}
+
+.service-price {
+    font-weight: 700;
+    color: #e63946;
+}
+
+/* Step Actions */
+.step-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 15px;
+}
+
+.btn-back,
+.btn-next {
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-back {
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+}
+
+.btn-back:hover {
+    background: #e0e0e0;
+}
+
+.btn-next {
+    background: #e63946;
+    color: white;
+    border: none;
+    flex-grow: 1;
+}
+
+.btn-next:hover {
+    background: #d62839;
+    transform: translateX(5px);
+}
+
+/* Result Section */
+.calculator-result {
+    text-align: center;
+}
+
+.result-header {
+    margin-bottom: 30px;
+}
+
+.result-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 30px;
+    background: linear-gradient(135deg, #e63946, #f77f00);
+    border-radius: 16px;
+    color: white;
+}
+
+.result-total .currency {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.result-total .amount {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.result-breakdown {
+    text-align: left;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.result-breakdown h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1f1f1f;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+
+.breakdown-item span:first-child {
+    color: #555;
+}
+
+.breakdown-item span:last-child {
+    font-weight: 700;
+    color: #1f1f1f;
+}
+
+.result-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.result-actions .btn {
+    flex: 1;
+    padding: 16px;
+    font-size: 16px;
+}
+
+.btn-recalculate {
+    flex: 1;
+    padding: 16px;
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-recalculate:hover {
+    background: #e0e0e0;
+}
+
+.result-note {
+    font-size: 13px;
+    color: #999;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .calculator-modal {
+        width: 95%;
+        max-height: 95vh;
+        border-radius: 15px;
+    }
+
+    .calculator-step {
+        padding: 30px 20px;
+    }
+
+    .calculator-progress {
+        padding: 20px 20px 15px;
+    }
+
+    .step-title {
+        font-size: 22px;
+    }
+
+    .step-description {
+        font-size: 14px;
+    }
+
+    .industry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .industry-card {
+        padding: 15px 10px;
+    }
+
+    .industry-icon {
+        font-size: 28px;
+    }
+
+    .industry-name {
+        font-size: 12px;
+    }
+
+    .business-type-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .business-type-card {
+        padding: 20px;
+    }
+
+    .visa-selector {
+        gap: 15px;
+    }
+
+    .visa-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .visa-input {
+        width: 80px;
+        height: 50px;
+        font-size: 28px;
+    }
+
+    .result-total .amount {
+        font-size: 36px;
+    }
+
+    .result-total .currency {
+        font-size: 20px;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .step-actions {
+        flex-direction: column;
+    }
+
+    .progress-steps {
+        font-size: 10px;
+    }
+}
+
+/* Scrollbar styling */
+.calculator-modal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.calculator-modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.calculator-modal::-webkit-scrollbar-thumb {
+    background: #e63946;
+    border-radius: 10px;
+}
+
+.calculator-modal::-webkit-scrollbar-thumb:hover {
+    background: #d62839;
+}

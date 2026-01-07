@@ -8,9 +8,12 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
+import CostCalculator from './components/CostCalculator';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,6 +21,14 @@ function App() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  const openCalculator = () => {
+    setIsCalculatorOpen(true);
+  };
+
+  const closeCalculator = () => {
+    setIsCalculatorOpen(false);
+  };
 
   if (isLoading) {
     return (
@@ -42,7 +53,7 @@ function App() {
 
   return (
     <div className="app">
-      <Navbar />
+      <Navbar onCalculatorOpen={openCalculator} />
       <main>
         <Hero />
         <About />
@@ -52,6 +63,8 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <WhatsAppButton />
+      <CostCalculator isOpen={isCalculatorOpen} onClose={closeCalculator} />
     </div>
   );
 }
