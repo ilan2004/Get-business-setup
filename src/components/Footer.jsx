@@ -26,12 +26,7 @@ const Footer = () => {
                         {/* Logo & About */}
                         <div className="footer-brand">
                             <a href="#home" className="footer-logo">
-                                <span className="logo-get">
-                                    <span className="logo-g">g</span>
-                                    <span className="logo-e">e</span>
-                                    <span className="logo-t">t</span>
-                                </span>
-                                <span className="logo-tagline">BUSINESS SETUP</span>
+                                <img src="/get logo.png" alt="Get Business Setup" width="100" height="32" />
                             </a>
                             <p className="footer-about">
                                 Your trusted partner for business setup and licensing services

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = ({ onCalculatorOpen }) => {
@@ -31,14 +32,9 @@ const Navbar = ({ onCalculatorOpen }) => {
         <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 {/* Logo */}
-                <a href="#home" className="navbar-logo">
-                    <span className="logo-get">
-                        <span className="logo-g">g</span>
-                        <span className="logo-e">e</span>
-                        <span className="logo-t">t</span>
-                    </span>
-                    <span className="logo-tagline">BUSINESS SETUP</span>
-                </a>
+                <Link to="/" className="navbar-logo">
+                    <img src="/get logo.png" alt="Get Business Setup" width="100" height="32" />
+                </Link>
 
                 {/* Desktop Navigation */}
                 <div className="navbar-links">

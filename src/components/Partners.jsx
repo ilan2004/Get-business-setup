@@ -42,24 +42,36 @@ const Partners = () => {
                     </p>
                 </div>
 
-                <div className="partners-grid">
-                    {partners.map((partner, index) => (
-                        <div
-                            key={index}
-                            className="partner-item"
-                            style={{ animationDelay: `${index * 0.05}s` }}
-                        >
-                            <div className="partner-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                                </svg>
-                            </div>
-                            <div className="partner-info">
-                                <span className="partner-name">{partner.name}</span>
-                                <span className="partner-category">{partner.category}</span>
-                            </div>
-                        </div>
-                    ))}
+                <div className="partners-grid-animated">
+                    {Array.from({ length: 30 }).map((_, index) => {
+                        const row = Math.floor(index / 5);
+                        const col = index % 5;
+
+                        // Generate random starting positions
+                        const randomX = (Math.random() - 0.5) * 1000; // -500px to 500px
+                        const randomY = (Math.random() - 0.5) * 1000;
+                        const randomRotate = (Math.random() - 0.5) * 360; // -180deg to 180deg
+                        const randomScale = 0.5 + Math.random(); // 0.5 to 1.5
+
+                        // Stagger effect
+                        const delay = Math.random() * 1.5;
+
+                        return (
+                            <div
+                                key={index}
+                                className="partner-piece"
+                                style={{
+                                    '--row': row,
+                                    '--col': col,
+                                    '--random-x': `${randomX}px`,
+                                    '--random-y': `${randomY}px`,
+                                    '--random-r': `${randomRotate}deg`,
+                                    '--random-s': randomScale,
+                                    '--delay': `${delay}s`
+                                }}
+                            ></div>
+                        );
+                    })}
                 </div>
 
                 <div className="partners-note">
