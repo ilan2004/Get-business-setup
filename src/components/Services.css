@@ -247,6 +247,7 @@
     flex-grow: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -305,6 +306,7 @@
 
     .services-tabs {
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     .slider-nav {
@@ -312,8 +314,20 @@
         /* Hide nav arrows on mobile, swipe naturally */
     }
 
+    .services-slider {
+        justify-content: flex-start;
+        padding: var(--space-4) var(--space-4);
+        scroll-snap-type: x mandatory;
+    }
+
     .service-card-new {
-        min-width: 280px;
+        min-width: 90vw;
+        max-width: 90vw;
+        scroll-snap-align: center;
+    }
+
+    .services-container {
+        padding: 0 var(--space-4);
     }
 }
 

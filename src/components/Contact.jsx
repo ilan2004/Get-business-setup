@@ -78,8 +78,7 @@ const Contact = () => {
                             <span className="text-white">Business Journey?</span>
                         </h2>
                         <p className="contact-description">
-                            Contact us today for a free consultation. Our experts are ready
-                            to guide you through every step of your UAE business setup.
+                            Contact us for a free consultation. Our experts are ready to guide you through your UAE business setup.
                         </p>
 
                         <div className="contact-details">

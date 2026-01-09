@@ -5,17 +5,9 @@ const Footer = () => {
 
     const quickLinks = [
         { name: 'Home', href: '#home' },
-        { name: 'About Us', href: '#about' },
+        { name: 'About', href: '#about' },
         { name: 'Services', href: '#services' },
         { name: 'Contact', href: '#contact' },
-    ];
-
-    const services = [
-        'Golden Visa Services',
-        'Company Formation',
-        'PRO Services',
-        'Visa Services',
-        'Business Consulting',
     ];
 
     return (
@@ -26,11 +18,10 @@ const Footer = () => {
                         {/* Logo & About */}
                         <div className="footer-brand">
                             <a href="#home" className="footer-logo">
-                                <img src="/get logo.png" alt="Get Business Setup" width="100" height="32" />
+                                <img src="/get logo.png" alt="Get Business Setup" width="100" height="28" />
                             </a>
                             <p className="footer-about">
-                                Your trusted partner for business setup and licensing services
-                                in Dubai and across the UAE. We make entrepreneurship accessible.
+                                Your trusted partner for business setup and licensing services in Dubai and the UAE.
                             </p>
                             <div className="footer-social">
                                 <a href="#" className="social-link">
@@ -58,33 +49,9 @@ const Footer = () => {
                             </div>
                         </div>
 
-                        {/* Quick Links */}
-                        <div className="footer-links">
-                            <h4 className="footer-title">Quick Links</h4>
-                            <ul>
-                                {quickLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <a href={link.href}>{link.name}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Services */}
-                        <div className="footer-links">
-                            <h4 className="footer-title">Our Services</h4>
-                            <ul>
-                                {services.map((service, index) => (
-                                    <li key={index}>
-                                        <a href="#services">{service}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
                         {/* Contact */}
                         <div className="footer-contact">
-                            <h4 className="footer-title">Contact Us</h4>
+                            <h4 className="footer-title">Contact</h4>
                             <div className="contact-list">
                                 <div className="contact-item">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -104,10 +71,21 @@ const Footer = () => {
                                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                                         <circle cx="12" cy="10" r="3" />
                                     </svg>
-                                    <span>Al Karama, Dubai - UAE</span>
+                                    <span>Al Karama, Dubai</span>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Quick Links - Below Brand */}
+                    <div className="footer-links">
+                        <ul>
+                            {quickLinks.map((link, index) => (
+                                <li key={index}>
+                                    <a href={link.href}>{link.name}</a>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -117,8 +95,8 @@ const Footer = () => {
                 <div className="footer-container">
                     <p>© {currentYear} GET Business Setup. All rights reserved.</p>
                     <div className="footer-bottom-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
                     </div>
                 </div>
             </div>

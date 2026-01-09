@@ -37,8 +37,7 @@ const Partners = () => {
                         Trusted by <span className="text-primary">50+ Government Entities</span>
                     </h2>
                     <p className="partners-subtitle">
-                        We maintain direct relationships with all major UAE government departments and free zones,
-                        ensuring smooth and efficient processing for your business needs.
+                        Direct relationships with all major UAE government departments and free zones for efficient processing.
                     </p>
                 </div>
 

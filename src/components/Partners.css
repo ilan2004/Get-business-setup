@@ -1,6 +1,6 @@
 /* Partners Section */
 .partners {
-    padding: var(--space-20) 0;
+    padding: var(--space-12) 0;
     background-color: #fff;
     overflow: hidden;
     /* Prevent flying pieces from causing scrollbars */
@@ -14,7 +14,7 @@
 }
 
 .partners-header {
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-8);
 }
 
 .partners-label {
@@ -30,9 +30,9 @@
 }
 
 .partners-title {
-    font-size: var(--text-4xl);
+    font-size: var(--text-3xl);
     color: var(--color-gray-900);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-4);
 }
 
 .partners-subtitle {
@@ -45,12 +45,12 @@
 /* Animated Grid Container */
 .partners-grid-animated {
     width: 100%;
-    max-width: 1000px;
+    max-width: 800px;
     /* Aspect ratio based on image usually, using a standard height here to approximate */
     /* Assuming 5 columns x 6 rows */
     aspect-ratio: 16/9;
     /* You might need to adjust this depending on the exact image dimensions */
-    margin: 0 auto var(--space-12);
+    margin: 0 auto var(--space-8);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -58,7 +58,7 @@
     /* Seamless puzzle */
     position: relative;
     /* Ensure container has height even before images land */
-    min-height: 500px;
+    min-height: 350px;
 }
 
 /* Individual Piece */
@@ -103,20 +103,20 @@
 .partners-note {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-3);
     background: var(--color-gray-50);
-    padding: var(--space-4) var(--space-8);
+    padding: var(--space-3) var(--space-6);
     border-radius: var(--radius-full);
     border: 1px solid var(--color-gray-200);
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
     text-align: left;
 }
 
 .note-icon {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     background: var(--color-white);
     border-radius: 50%;
     display: flex;
@@ -138,7 +138,8 @@
         /* On mobile, we might want to stack or just simpler view, 
            but for the request we keep the animation. 
            Just ensure height is reasonable. */
-        min-height: 300px;
+        min-height: 250px;
+        max-width: 100%;
     }
 
     .partners-note {
