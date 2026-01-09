@@ -1,0 +1,134 @@
+/* =============================================
+   APP COMPONENT STYLES - GET BUSINESS SETUP
+   ============================================= */
+
+.app {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--color-white);
+}
+
+/* Loader Styles */
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #003087 0%, #001040 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-max);
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+}
+
+.get-logo {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 15vw, 8rem);
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.get-g {
+  color: var(--color-white);
+  position: relative;
+}
+
+.get-g::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-secondary);
+  border-radius: 50% 0 50% 50%;
+  transform: rotate(45deg);
+}
+
+.get-e {
+  color: var(--color-white);
+}
+
+.get-t {
+  color: var(--color-white);
+  position: relative;
+}
+
+.get-t::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -20px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 15px solid var(--color-secondary);
+}
+
+.get-tagline {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+}
+
+.loader-progress {
+  width: 250px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: 0 auto var(--space-4);
+}
+
+.loader-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-secondary), #ff6b7a, var(--color-secondary));
+  background-size: 200% 100%;
+  animation: loaderProgress 2s ease forwards, shimmerLoader 1s linear infinite;
+}
+
+.loader-text {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.1em;
+}
+
+@keyframes loaderProgress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes shimmerLoader {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}

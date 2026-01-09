@@ -1,0 +1,343 @@
+/* Services Section */
+.services {
+    padding: var(--space-20) 0;
+    position: relative;
+    overflow: hidden;
+    background-color: #f3f5f9;
+    /* Light lavender-ish background from screenshot */
+}
+
+.services-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Styling - Matching Screenshot */
+.services-header {
+    margin-bottom: var(--space-12);
+    text-align: center;
+}
+
+.services-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+}
+
+.services-title {
+    font-size: 2.5rem;
+    /* Larger title */
+    color: var(--color-gray-900);
+    line-height: 1.2;
+    margin-bottom: var(--space-6);
+    font-family: var(--font-primary);
+    font-weight: 700;
+}
+
+.services-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    max-width: 800px;
+    /* Wider subtitle */
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Tabs & Navigation */
+.services-tabs {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+    border-bottom: none;
+    /* Removed border */
+    align-items: center;
+    position: relative;
+}
+
+.tab-btn {
+    padding: var(--space-3) var(--space-6);
+    border: none;
+    background: transparent;
+    font-size: var(--text-lg);
+    color: var(--color-gray-500);
+    cursor: pointer;
+    position: relative;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--color-primary);
+    background: #fff;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+}
+
+.slider-nav {
+    margin-left: auto;
+    /* Push to right */
+    display: flex;
+    gap: var(--space-2);
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    /* Navy blue from screenshot */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background: var(--color-secondary);
+    transform: scale(1.1);
+}
+
+/* New Slider Layout */
+.services-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-2);
+    scroll-behavior: smooth;
+    /* Native smooth scroll for manual navigation */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+/* Hide scrollbar */
+.services-slider::-webkit-scrollbar {
+    display: none;
+}
+
+/* New Card Design */
+.service-card-new {
+    min-width: 320px;
+    /* Fixed width for card consistency */
+    max-width: 350px;
+    background: #fff;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card-new:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-area {
+    height: 180px;
+    background: #e0e7ff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.5s ease;
+}
+
+.service-card-new:hover .card-bg-image {
+    transform: scale(1.1);
+}
+
+/* Overlay gradient to keep text readable */
+.card-image-area::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
+    z-index: 1;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    z-index: 2;
+}
+
+.card-tag {
+    background: #fff;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-gray-800);
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+}
+
+.card-icon-large {
+    font-size: 4rem;
+    z-index: 2;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    opacity: 0.9;
+}
+
+.card-content {
+    padding: var(--space-6);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-3);
+    line-height: 1.4;
+}
+
+.card-desc {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    margin-bottom: var(--space-6);
+    line-height: 1.6;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.btn-explore {
+    align-self: flex-start;
+    background: #e74c3c;
+    /* Reddish orange from screenshot */
+    color: #fff;
+    border: none;
+    padding: var(--space-2) var(--space-6);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-explore:hover {
+    background: #c0392b;
+}
+
+.btn-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+/* Animations */
+.animate-service {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .services-title {
+        font-size: 2rem;
+    }
+
+    .services-tabs {
+        flex-wrap: wrap;
+    }
+
+    .slider-nav {
+        display: none;
+        /* Hide nav arrows on mobile, swipe naturally */
+    }
+
+    .service-card-new {
+        min-width: 280px;
+    }
+}
+
+/* Logic for Additional Services (kept similar but spaced) */
+.additional-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+}
+
+.additional-item {
+    background: #fff;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-sm);
+    font-weight: 500;
+}
+
+.additional-bullet {
+    color: var(--color-primary);
+    width: 24px;
+    height: 24px;
+}

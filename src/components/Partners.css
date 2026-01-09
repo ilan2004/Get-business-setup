@@ -1,0 +1,149 @@
+/* Partners Section */
+.partners {
+    padding: var(--space-20) 0;
+    background-color: #fff;
+    overflow: hidden;
+    /* Prevent flying pieces from causing scrollbars */
+}
+
+.partners-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+    text-align: center;
+}
+
+.partners-header {
+    margin-bottom: var(--space-12);
+}
+
+.partners-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+}
+
+.partners-title {
+    font-size: var(--text-4xl);
+    color: var(--color-gray-900);
+    margin-bottom: var(--space-6);
+}
+
+.partners-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gray-600);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Animated Grid Container */
+.partners-grid-animated {
+    width: 100%;
+    max-width: 1000px;
+    /* Aspect ratio based on image usually, using a standard height here to approximate */
+    /* Assuming 5 columns x 6 rows */
+    aspect-ratio: 16/9;
+    /* You might need to adjust this depending on the exact image dimensions */
+    margin: 0 auto var(--space-12);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0;
+    /* Seamless puzzle */
+    position: relative;
+    /* Ensure container has height even before images land */
+    min-height: 500px;
+}
+
+/* Individual Piece */
+.partner-piece {
+    background-image: url('/images/partners-grid.png');
+    background-size: 500% 600%;
+    /* 5 columns = 500%, 6 rows = 600% */
+    background-position: calc(var(--col) * 25%) calc(var(--row) * 20%);
+    /* 100% / (5-1) = 25%, 100% / (6-1) = 20% */
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+
+    /* Animation Initial State */
+    opacity: 0;
+    transform: translate(var(--random-x), var(--random-y)) rotate(var(--random-r)) scale(var(--random-s));
+
+    /* Animation Application */
+    animation: assemblePuzzle 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: var(--delay);
+}
+
+@keyframes assemblePuzzle {
+    0% {
+        opacity: 0;
+        transform: translate(var(--random-x), var(--random-y)) rotate(var(--random-r)) scale(var(--random-s));
+    }
+
+    60% {
+        opacity: 1;
+        /* Slight overshoot for bounce effect */
+        transform: translate(0, 0) rotate(0) scale(1.02);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0) scale(1);
+    }
+}
+
+/* Note Section */
+.partners-note {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: var(--color-gray-50);
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-gray-200);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.note-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: var(--color-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary);
+    box-shadow: var(--shadow-sm);
+}
+
+.partners-note p {
+    font-size: var(--text-sm);
+    color: var(--color-gray-700);
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .partners-grid-animated {
+        /* On mobile, we might want to stack or just simpler view, 
+           but for the request we keep the animation. 
+           Just ensure height is reasonable. */
+        min-height: 300px;
+    }
+
+    .partners-note {
+        flex-direction: column;
+        text-align: center;
+        border-radius: var(--radius-xl);
+    }
+}
