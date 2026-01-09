@@ -33,7 +33,7 @@ const Navbar = ({ onCalculatorOpen }) => {
             <div className="navbar-container">
                 {/* Logo */}
                 <Link to="/" className="navbar-logo">
-                    <img src="/get logo.png" alt="Get Business Setup" width="100" height="32" />
+                    <img src="/get logo.png" alt="Get Business Setup" />
                 </Link>
 
                 {/* Desktop Navigation */}

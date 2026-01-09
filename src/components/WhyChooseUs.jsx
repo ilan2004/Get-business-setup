@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './WhyChooseUs.css';
 
 const WhyChooseUs = () => {
     const sectionRef = useRef(null);
+    const [isPaused, setIsPaused] = useState(false);
 
     const reasons = [
         {
@@ -37,6 +38,9 @@ const WhyChooseUs = () => {
         },
     ];
 
+    // Duplicate cards for infinite scroll effect
+    const allCards = [...reasons, ...reasons, ...reasons];
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -55,11 +59,106 @@ const WhyChooseUs = () => {
         return () => observer.disconnect();
     }, []);
 
+    // Auto-scroll logic for cards with infinite loop
+    useEffect(() => {
+        const slider = document.querySelector('.why-cards');
+        if (!slider) return;
+
+        let intervalId;
+        let currentIndex = reasons.length; // Start at middle set
+
+        // Initial scroll to middle set
+        const cards = slider.querySelectorAll('.why-card');
+        if (cards.length > 0) {
+            const card = cards[currentIndex];
+            const cardLeft = card.offsetLeft;
+            const cardWidth = card.offsetWidth;
+            const sliderWidth = slider.offsetWidth;
+            const scrollPosition = cardLeft - (sliderWidth / 2) + (cardWidth / 2);
+            slider.scrollTo({ left: scrollPosition, behavior: 'auto' });
+        }
+
+        const autoScroll = () => {
+            if (isPaused) return;
+
+            const cards = slider.querySelectorAll('.why-card');
+            if (cards.length === 0) return;
+
+            currentIndex++;
+            
+            // Reset to middle set when reaching end of second set
+            if (currentIndex >= reasons.length * 2) {
+                currentIndex = reasons.length;
+            }
+            
+            // Calculate position to center the card
+            const card = cards[currentIndex];
+            const cardLeft = card.offsetLeft;
+            const cardWidth = card.offsetWidth;
+            const sliderWidth = slider.offsetWidth;
+            const scrollPosition = cardLeft - (sliderWidth / 2) + (cardWidth / 2);
+            
+            slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        };
+
+        intervalId = setInterval(autoScroll, 2500);
+
+        return () => clearInterval(intervalId);
+    }, [isPaused, reasons.length]);
+
+    const scrollLeft = () => {
+        const slider = document.querySelector('.why-cards');
+        if (!slider) return;
+        
+        const cards = slider.querySelectorAll('.why-card');
+        const sliderWidth = slider.offsetWidth;
+        
+        // Find the currently centered card
+        let currentIndex = 0;
+        cards.forEach((card, index) => {
+            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+            const sliderCenter = slider.scrollLeft + (sliderWidth / 2);
+            if (Math.abs(cardCenter - sliderCenter) < card.offsetWidth) {
+                currentIndex = index;
+            }
+        });
+        
+        // Scroll to previous card
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : cards.length - 1;
+        const card = cards[prevIndex];
+        const scrollPosition = card.offsetLeft - (sliderWidth / 2) + (card.offsetWidth / 2);
+        slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        const slider = document.querySelector('.why-cards');
+        if (!slider) return;
+        
+        const cards = slider.querySelectorAll('.why-card');
+        const sliderWidth = slider.offsetWidth;
+        
+        // Find the currently centered card
+        let currentIndex = 0;
+        cards.forEach((card, index) => {
+            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+            const sliderCenter = slider.scrollLeft + (sliderWidth / 2);
+            if (Math.abs(cardCenter - sliderCenter) < card.offsetWidth) {
+                currentIndex = index;
+            }
+        });
+        
+        // Scroll to next card
+        const nextIndex = (currentIndex + 1) % cards.length;
+        const card = cards[nextIndex];
+        const scrollPosition = card.offsetLeft - (sliderWidth / 2) + (card.offsetWidth / 2);
+        slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+    };
+
     return (
         <section className="why-choose-us" id="why-us" ref={sectionRef}>
             <div className="why-container">
-                <div className="why-content">
-                    {/* Left - Text */}
+                {/* Text Section */}
+                <div className="why-text-section">
                     <div className="why-text animate-why">
                         <div className="why-label">
                             <span className="label-line"></span>
@@ -92,10 +191,24 @@ const WhyChooseUs = () => {
                             </a>
                         </div>
                     </div>
+                </div>
 
-                    {/* Right - Cards */}
-                    <div className="why-cards">
-                        {reasons.map((reason, index) => (
+                {/* Cards Section with Horizontal Scroll */}
+                <div className="why-cards-section">
+                    <div className="why-cards-wrapper">
+                        {/* Navigation Arrows */}
+                        <button className="nav-btn left" onClick={scrollLeft} aria-label="Scroll Left">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div 
+                            className="why-cards"
+                            onMouseEnter={() => setIsPaused(true)}
+                            onMouseLeave={() => setIsPaused(false)}
+                            onClick={() => setIsPaused(!isPaused)}
+                        >
+                            {allCards.map((reason, index) => (
                             <div
                                 key={index}
                                 className="why-card animate-why"
@@ -108,6 +221,12 @@ const WhyChooseUs = () => {
                                 </div>
                             </div>
                         ))}
+                        </div>
+                        <button className="nav-btn right" onClick={scrollRight} aria-label="Scroll Right">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>

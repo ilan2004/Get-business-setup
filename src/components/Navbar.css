@@ -36,6 +36,17 @@
     gap: var(--space-2);
 }
 
+.navbar-logo img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    transition: height var(--transition-base);
+}
+
+.navbar.scrolled .navbar-logo img {
+    height: 32px;
+}
+
 .logo-get {
     display: flex;
     align-items: baseline;
