@@ -93,8 +93,7 @@
 
 .sc-flip-card-back {
     padding: 2rem;
-    background-color: #fff;
-    /* Light theme back for contrast */
+    background-color: #ffffff;
     color: #1a1a1a;
     transform: rotateY(180deg);
     display: flex;
@@ -102,6 +101,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Subtle border definition */
 }
 
 /* Content Styling */
@@ -110,10 +112,33 @@
     height: 64px;
     margin-bottom: 1.5rem;
     color: #ffffff;
-    /* White icon */
+}
+
+.sc-watermark-icon {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    opacity: 0.05;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 0;
+    color: #000;
+}
+
+.sc-content-wrapper {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    /* Further reduced */
 }
 
 .sc-title {
+    font-family: 'Chillax', sans-serif;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
@@ -122,26 +147,63 @@
 }
 
 .sc-description {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 1.5rem;
+    font-family: 'Chillax', sans-serif;
+    font-size: 0.9rem;
+    /* Reduced from 1.05rem */
+    color: #333;
     line-height: 1.5;
+    font-weight: 500;
+    /* Increased from 400 */
+    margin: 0;
+    /* Handled by gap */
 }
 
 .sc-btn {
+    /* Keeping old class just in case, but usually unused now */
     padding: 0.8rem 1.5rem;
-    background: #1a1a1a;
-    color: white;
-    border: none;
-    border-radius: 2rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: transform 0.2s;
 }
 
-.sc-btn:hover {
-    transform: scale(1.05);
-    background: #000;
+.sc-btn-link {
+    font-family: 'Chillax', sans-serif;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+    /* Prevent wrapping */
+}
+
+.sc-btn-link span {
+    transition: transform 0.3s ease;
+}
+
+.sc-btn-link:hover {
+    gap: 0.8rem;
+    /* Creates movement properly */
+    opacity: 0.7;
+}
+
+.sc-btn-link:hover span {
+    transform: translateX(3px);
+}
+
+/* Theme specific coloring for the link */
+.sc-card-red .sc-btn-link {
+    color: #e63946;
+    /* Example Red */
+}
+
+.sc-card-blue .sc-btn-link {
+    color: #2a9d8f;
+    /* Example Teal/Blue */
 }
 
 @keyframes sc-floating {
@@ -163,15 +225,20 @@
 @media (max-width: 768px) {
     .sc-card-container {
         width: 160px;
-        /* Increased width */
         height: 230px;
-        /* Increased height */
     }
 
     .sc-icon {
         width: 40px;
         height: 40px;
         margin-bottom: 0.5rem;
+    }
+
+    .sc-watermark-icon {
+        width: 100px;
+        height: 100px;
+        bottom: -10px;
+        right: -10px;
     }
 
     .sc-title {
@@ -186,17 +253,22 @@
         padding: 1rem;
     }
 
+    .sc-content-wrapper {
+        gap: 0.5rem;
+    }
+
     .sc-description {
         font-size: 0.8rem;
         margin-bottom: 0.5rem;
         display: -webkit-box;
         -webkit-line-clamp: 4;
+        line-clamp: 4;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    .sc-btn {
-        padding: 0.5rem 1rem;
+    .sc-btn-link {
         font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
     }
 }

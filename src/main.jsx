@@ -5,6 +5,7 @@ import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './index.css'
+import './assets/fonts/Chillax/chillax.css'
 import App from './App.jsx'
 
 // Register GSAP plugins

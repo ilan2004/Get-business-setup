@@ -18,10 +18,17 @@ const ServiceCard3D = forwardRef(({ id, title, description, icon, onClick, color
 
                     {/* Back Side */}
                     <div className="sc-flip-card-back">
-                        <p className="sc-description">{description}</p>
-                        <button className="sc-btn" onClick={onClick}>
-                            Explore
-                        </button>
+                        <div className="sc-watermark-icon">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d={icon} />
+                            </svg>
+                        </div>
+                        <div className="sc-content-wrapper">
+                            <p className="sc-description">{description}</p>
+                            <button className="sc-btn-link" onClick={onClick}>
+                                Learn More <span>&rarr;</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

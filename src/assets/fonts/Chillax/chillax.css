@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Extralight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Semibold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chillax';
+    src: url('./Chillax-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
+}
