@@ -52,7 +52,7 @@ const Process = () => {
             ScrollTrigger.create({
                 trigger: section,
                 start: "top top",
-                end: "+=300%", // 3x scroll distance
+                end: "+=200%", // Reduced from 300% for faster progression
                 pin: true,
                 scrub: 1,
                 onUpdate: (self) => {

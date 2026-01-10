@@ -129,7 +129,7 @@ const ServicesGrid = () => {
         mm.add("(max-width: 768px)", () => {
             // Batch 1: Cards 0-3
             // Batch 2: Cards 4-7
-            const mobileScrollHeight = window.innerHeight * 4; // Reduced from 5 for faster transition
+            const mobileScrollHeight = window.innerHeight * 2.5; // Significantly reduced for faster experience
 
             // Create Master Timeline pinned to scroll
             const tl = gsap.timeline({
@@ -147,7 +147,7 @@ const ServicesGrid = () => {
             const batch1 = [0, 1, 2, 3];
             const batch2 = [4, 5, 6, 7];
 
-            // 1. Spread Batch 1 (0-10% timeline)
+            // 1. Spread Batch 1 (faster)
             batch1.forEach((idx) => {
                 const card = cards[idx];
                 if (!card) return;
@@ -155,19 +155,19 @@ const ServicesGrid = () => {
                 const col = idx % 2;
                 const row = Math.floor(idx / 2); // 0 or 1
                 const left = col === 0 ? 25 : 75;
-                const top = row === 0 ? 30 : 70; // Closer gap (was 25/75)
+                const top = row === 0 ? 30 : 70;
                 const rot = col === 0 ? -5 : 5;
 
                 tl.to(card, {
                     left: `${left}%`,
                     top: `${top}%`,
                     rotation: rot,
-                    duration: 1,
+                    duration: 0.6, // Reduced from 1
                     ease: "power2.out"
-                }, 0); // Start at 0
+                }, 0);
             });
 
-            // 2. Flip Batch 1 (10-30% timeline)
+            // 2. Flip Batch 1 (faster)
             batch1.forEach((idx) => {
                 const card = cards[idx];
                 if (!card) return;
@@ -175,46 +175,43 @@ const ServicesGrid = () => {
                 const frontEl = card.querySelector(".sc-flip-card-front");
                 const backEl = card.querySelector(".sc-flip-card-back");
 
-                // Stagger flip slightly
-                const delay = 1 + (idx * 0.2);
+                const delay = 0.6 + (idx * 0.1); // Tighter stagger
 
-                tl.to(frontEl, { rotateY: -180, duration: 1 }, delay);
-                tl.to(backEl, { rotateY: 0, duration: 1 }, delay);
-                tl.to(card, { rotate: 0, zIndex: 50, duration: 1 }, delay);
+                tl.to(frontEl, { rotateY: -180, duration: 0.5 }, delay); // Reduced from 1
+                tl.to(backEl, { rotateY: 0, duration: 0.5 }, delay);
+                tl.to(card, { rotate: 0, zIndex: 50, duration: 0.5 }, delay);
             });
 
-            // 3. Exit Batch 1 & Enter Batch 2 (Start earlier at 3)
-            // Batch 1 goes UP
+            // 3. Exit Batch 1 & Enter Batch 2 (much earlier)
             batch1.forEach((idx) => {
                 const card = cards[idx];
                 if (!card) return;
-                tl.to(card, { top: '-50%', opacity: 0, duration: 2 }, 3); // Started at 4 previously
+                tl.to(card, { top: '-50%', opacity: 0, duration: 1 }, 1.5); // Start at 1.5, duration 1
             });
 
-            // Batch 2 comes IN (Start from bottom)
+            // Batch 2 comes IN
             batch2.forEach((idx) => {
                 const card = cards[idx];
                 if (!card) return;
 
-                // Set initial state for Batch 2 (off-screen bottom)
                 gsap.set(card, { top: '150%', left: '50%', rotation: 0 });
 
                 const col = idx % 2;
-                const row = Math.floor((idx - 4) / 2); // 0 or 1
+                const row = Math.floor((idx - 4) / 2);
                 const left = col === 0 ? 25 : 75;
-                const top = row === 0 ? 30 : 70; // Closer gap (was 25/75)
+                const top = row === 0 ? 30 : 70;
                 const rot = col === 0 ? -5 : 5;
 
                 tl.to(card, {
                     left: `${left}%`,
                     top: `${top}%`,
                     rotation: rot,
-                    duration: 2,
+                    duration: 1, // Reduced from 2
                     ease: "power2.out"
-                }, 3); // Sync with Batch 1 exit (at 3)
+                }, 1.5); // Sync with Batch 1 exit
             });
 
-            // 4. Flip Batch 2 (Start earlier at 5)
+            // 4. Flip Batch 2 (faster)
             batch2.forEach((idx) => {
                 const card = cards[idx];
                 if (!card) return;
@@ -222,15 +219,14 @@ const ServicesGrid = () => {
                 const frontEl = card.querySelector(".sc-flip-card-front");
                 const backEl = card.querySelector(".sc-flip-card-back");
 
-                const delay = 5 + ((idx - 4) * 0.2); // Started at 6 previously
+                const delay = 2.5 + ((idx - 4) * 0.1); // Start at 2.5, tighter stagger
 
-                tl.to(frontEl, { rotateY: -180, duration: 1 }, delay);
-                tl.to(backEl, { rotateY: 0, duration: 1 }, delay);
-                tl.to(card, { rotate: 0, zIndex: 50, duration: 1 }, delay);
+                tl.to(frontEl, { rotateY: -180, duration: 0.5 }, delay); // Reduced from 1
+                tl.to(backEl, { rotateY: 0, duration: 0.5 }, delay);
+                tl.to(card, { rotate: 0, zIndex: 50, duration: 0.5 }, delay);
             });
 
-            // 5. Hold (End buffer)
-            tl.to({}, { duration: 1 });
+            // No hold buffer - end immediately after last flip
         });
 
         // Shared Flip Animation Logic
