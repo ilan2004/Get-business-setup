@@ -200,7 +200,7 @@ const Process = () => {
                     <p>Launch your business in Dubai today.</p>
                 </div>
 
-                <div className="cta-morph-bg" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                <div className="cta-morph-bg" onClick={() => window.open('https://wa.me/971504274260?text=Hi,%20I%20am%20interested%20in%20your%20services', '_blank')}>
                     <span className="cta-text">Get Your License Now</span>
                 </div>
             </div>

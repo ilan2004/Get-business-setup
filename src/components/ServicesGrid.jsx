@@ -302,7 +302,7 @@ const ServicesGrid = () => {
                     width: '100%'
                 }} className="services-grid-header">
                     <span className="section-label" style={{ display: 'block', color: 'var(--primary)', marginBottom: '1rem' }}>Our Expertise</span>
-                    <h1 style={{ fontSize: '3rem', margin: 0, color: 'black' }}>Comprehensive Solutions for Your Business</h1>
+                    <h1 style={{ fontSize: '3rem', margin: 0, color: '#1a1a1a', textShadow: '0 2px 10px rgba(255,255,255,0.8)' }}>Comprehensive Solutions for Your Business</h1>
                 </div>
 
                 {services.map((service, index) => (
