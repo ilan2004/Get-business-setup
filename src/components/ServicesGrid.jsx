@@ -127,49 +127,110 @@ const ServicesGrid = () => {
 
         // 2. Mobile Logic (max-width: 768px)
         mm.add("(max-width: 768px)", () => {
-            const cardsPerRow = 2; // 2 Columns
+            // Batch 1: Cards 0-3
+            // Batch 2: Cards 4-7
+            const mobileScrollHeight = window.innerHeight * 4; // Reduced from 5 for faster transition
 
-            ScrollTrigger.create({
-                trigger: container.current.querySelector(".sc-cards-section"),
-                start: "top top",
-                end: () => `+=${totalScrollHeight}`,
-                pin: true,
-                pinSpacing: true,
-                scrub: 1,
+            // Create Master Timeline pinned to scroll
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: container.current.querySelector(".sc-cards-section"),
+                    start: "top top",
+                    end: `+=${mobileScrollHeight}`,
+                    pin: true,
+                    pinSpacing: true,
+                    scrub: 1,
+                }
             });
 
-            cards.forEach((card, index) => {
+            // Indices
+            const batch1 = [0, 1, 2, 3];
+            const batch2 = [4, 5, 6, 7];
+
+            // 1. Spread Batch 1 (0-10% timeline)
+            batch1.forEach((idx) => {
+                const card = cards[idx];
                 if (!card) return;
 
-                const rowIndex = Math.floor(index / cardsPerRow); // 0..3
-                const colIndex = index % cardsPerRow; // 0..1
+                const col = idx % 2;
+                const row = Math.floor(idx / 2); // 0 or 1
+                const left = col === 0 ? 25 : 75;
+                const top = row === 0 ? 30 : 70; // Closer gap (was 25/75)
+                const rot = col === 0 ? -5 : 5;
 
-                // Spread width 80% (centered)
-                // Col 0: 25%, Col 1: 75% roughly
-                const leftPos = colIndex === 0 ? 25 : 75;
-
-                // Vertical positions for 4 rows: spread 15% to 85%
-                const topPos = 15 + rowIndex * 23;
-
-                // Minimal tilt
-                const rotation = colIndex === 0 ? -5 : 5;
-
-                gsap.to(card, {
-                    left: `${leftPos}%`,
-                    top: `${topPos}%`,
-                    rotation: `${rotation}`,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: container.current.querySelector(".sc-cards-section"),
-                        start: "top top",
-                        end: () => `+=${window.innerHeight * 0.8}`,
-                        scrub: 0.5,
-                        id: `spread-m-${index}`,
-                    },
-                });
-
-                setupFlipAnimation(card, index, totalCards, cardsPerRow, rotation, totalScrollHeight);
+                tl.to(card, {
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    rotation: rot,
+                    duration: 1,
+                    ease: "power2.out"
+                }, 0); // Start at 0
             });
+
+            // 2. Flip Batch 1 (10-30% timeline)
+            batch1.forEach((idx) => {
+                const card = cards[idx];
+                if (!card) return;
+
+                const frontEl = card.querySelector(".sc-flip-card-front");
+                const backEl = card.querySelector(".sc-flip-card-back");
+
+                // Stagger flip slightly
+                const delay = 1 + (idx * 0.2);
+
+                tl.to(frontEl, { rotateY: -180, duration: 1 }, delay);
+                tl.to(backEl, { rotateY: 0, duration: 1 }, delay);
+                tl.to(card, { rotate: 0, zIndex: 50, duration: 1 }, delay);
+            });
+
+            // 3. Exit Batch 1 & Enter Batch 2 (Start earlier at 3)
+            // Batch 1 goes UP
+            batch1.forEach((idx) => {
+                const card = cards[idx];
+                if (!card) return;
+                tl.to(card, { top: '-50%', opacity: 0, duration: 2 }, 3); // Started at 4 previously
+            });
+
+            // Batch 2 comes IN (Start from bottom)
+            batch2.forEach((idx) => {
+                const card = cards[idx];
+                if (!card) return;
+
+                // Set initial state for Batch 2 (off-screen bottom)
+                gsap.set(card, { top: '150%', left: '50%', rotation: 0 });
+
+                const col = idx % 2;
+                const row = Math.floor((idx - 4) / 2); // 0 or 1
+                const left = col === 0 ? 25 : 75;
+                const top = row === 0 ? 30 : 70; // Closer gap (was 25/75)
+                const rot = col === 0 ? -5 : 5;
+
+                tl.to(card, {
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    rotation: rot,
+                    duration: 2,
+                    ease: "power2.out"
+                }, 3); // Sync with Batch 1 exit (at 3)
+            });
+
+            // 4. Flip Batch 2 (Start earlier at 5)
+            batch2.forEach((idx) => {
+                const card = cards[idx];
+                if (!card) return;
+
+                const frontEl = card.querySelector(".sc-flip-card-front");
+                const backEl = card.querySelector(".sc-flip-card-back");
+
+                const delay = 5 + ((idx - 4) * 0.2); // Started at 6 previously
+
+                tl.to(frontEl, { rotateY: -180, duration: 1 }, delay);
+                tl.to(backEl, { rotateY: 0, duration: 1 }, delay);
+                tl.to(card, { rotate: 0, zIndex: 50, duration: 1 }, delay);
+            });
+
+            // 5. Hold (End buffer)
+            tl.to({}, { duration: 1 });
         });
 
         // Shared Flip Animation Logic

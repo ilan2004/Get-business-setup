@@ -78,8 +78,13 @@ const Process = () => {
                             if (!featureStartPositions[index]) return;
                             const original = featureStartPositions[index];
                             // Shift convergence slightly down (52%) and right (54%) as per user request
-                            const currentTop = original.top + (52 - original.top) * convergeProgress;
-                            const currentLeft = original.left + (54 - original.left) * convergeProgress;
+                            // Mobile adjustment: "just a bit up (53->51)"
+                            const isMobile = window.innerWidth < 768;
+                            const targetTop = isMobile ? 51 : 52;
+                            const targetLeft = isMobile ? 62 : 54;
+
+                            const currentTop = original.top + (targetTop - original.top) * convergeProgress;
+                            const currentLeft = original.left + (targetLeft - original.left) * convergeProgress;
 
                             gsap.set(feature, {
                                 top: `${currentTop}%`,

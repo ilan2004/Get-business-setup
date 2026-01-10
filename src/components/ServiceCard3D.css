@@ -162,10 +162,10 @@
 /* Mobile Styles */
 @media (max-width: 768px) {
     .sc-card-container {
-        width: 140px;
-        /* Reduced width for 2 columns */
-        height: 200px;
-        /* Reduced height */
+        width: 160px;
+        /* Increased width */
+        height: 230px;
+        /* Increased height */
     }
 
     .sc-icon {
