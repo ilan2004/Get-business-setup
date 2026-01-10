@@ -306,21 +306,6 @@ const ServicesGrid = () => {
 
             <div className="sc-cards-section">
 
-                {/* Header overlay or part of the flow? */}
-                {/* Let's put the header absolute at top to be visible initially */}
-                <div style={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '50%',
-                    transform: 'translate(-50%, 0)',
-                    zIndex: 5,
-                    width: 'auto', // Changed from 100% to auto to fit the glass box
-                    maxWidth: '90%'
-                }} className="services-grid-header glass-header">
-                    <span className="section-label" style={{ display: 'block', color: 'var(--primary)', marginBottom: '0.5rem' }}>Our Expertise</span>
-                    <h1 style={{ fontSize: '3rem', margin: 0, color: '#1a1a1a' }}>Comprehensive Solutions for Your Business</h1>
-                </div>
-
                 {services.map((service, index) => (
                     <ServiceCard3D
                         key={index}
