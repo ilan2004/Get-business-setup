@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ServiceCard3D from './ServiceCard3D';
-import './ServicesGrid.css'; // You might want to remove this if fully replaced, or keep for header styles
+import './ServicesGrid.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,6 +63,26 @@ const ServicesGrid = () => {
     const container = useRef(null);
     const cardRefs = useRef([]);
     const navigate = useNavigate();
+
+    // Handle card click - cleanup GSAP before navigation to prevent React DOM conflicts
+    const handleCardClick = (link) => {
+        // Kill all ScrollTriggers to release DOM references before React unmounts
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        gsap.killTweensOf("*");
+
+        // Small delay to ensure cleanup completes before navigation
+        requestAnimationFrame(() => {
+            navigate(link);
+        });
+    };
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            gsap.killTweensOf("*");
+        };
+    }, []);
 
     useGSAP(() => {
         const cards = cardRefs.current;
@@ -309,7 +329,7 @@ const ServicesGrid = () => {
                         description={service.description}
                         icon={service.icon}
                         colorTheme={index % 2 === 0 ? 'red' : 'blue'}
-                        onClick={() => navigate(service.link)}
+                        onClick={() => handleCardClick(service.link)}
                         ref={(el) => (cardRefs.current[index] = el)}
                     />
                 ))}

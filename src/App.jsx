@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -19,6 +19,7 @@ import CostCalculator from './components/CostCalculator';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,6 +27,16 @@ function App() {
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    // Use Lenis scrollTo if available, otherwise fallback to window.scrollTo
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   const openCalculator = () => {
     setIsCalculatorOpen(true);

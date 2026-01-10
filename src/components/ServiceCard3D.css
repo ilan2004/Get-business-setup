@@ -103,8 +103,15 @@
     text-align: center;
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    /* Subtle border definition */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
+
+.sc-flip-card-back:hover {
+    background-color: #f8f9fa;
+}
+
+/* Removed pointer-events: none to allow entire card back to be clickable */
 
 /* Content Styling */
 .sc-icon {
@@ -171,7 +178,6 @@
     cursor: pointer;
     font-size: 1rem;
     font-weight: 700;
-    /* Made extra bold */
     color: #000;
     display: flex;
     align-items: center;
@@ -180,7 +186,7 @@
     transition: all 0.3s ease;
     border-bottom: 1px solid transparent;
     white-space: nowrap;
-    /* Prevent wrapping */
+    pointer-events: none; /* Prevent double-click handling since parent handles it */
 }
 
 .sc-btn-link span {

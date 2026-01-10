@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from 'react'
+import { StrictMode, useEffect, useRef } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
@@ -14,6 +14,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Lenis smooth scroll wrapper
 function SmoothScrollProvider({ children }) {
+  const lenisRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -24,6 +26,8 @@ function SmoothScrollProvider({ children }) {
       wheelMultiplier: 1,
       touchMultiplier: 2,
     })
+
+    lenisRef.current = lenis;
 
     // Sync Lenis with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update)
@@ -38,6 +42,16 @@ function SmoothScrollProvider({ children }) {
       gsap.ticker.remove(lenis.raf)
     }
   }, [])
+
+  // Expose lenis instance globally for route changes
+  useEffect(() => {
+    if (lenisRef.current) {
+      window.lenis = lenisRef.current;
+    }
+    return () => {
+      delete window.lenis;
+    };
+  }, []);
 
   return children
 }

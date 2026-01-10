@@ -1,107 +1,107 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Hero.css';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
     const heroRef = useRef(null);
     const counterRefs = useRef([]);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            // --- Reduced Animations for Minimalist Look ---
+    useGSAP(() => {
+        // --- Reduced Animations for Minimalist Look ---
 
-            // Title animation - simple fade up
-            const titleLines = heroRef.current?.querySelectorAll('.title-line');
-            gsap.fromTo(titleLines,
-                {
-                    y: 40,
-                    opacity: 0,
-                },
+        // Title animation - simple fade up
+        const titleLines = heroRef.current?.querySelectorAll('.title-line');
+        gsap.fromTo(titleLines,
+            {
+                y: 40,
+                opacity: 0,
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: 'power3.out',
+                delay: 0.2
+            }
+        );
+
+        // Badge animation
+        gsap.fromTo('.hero-badge',
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, delay: 0.1, ease: 'power2.out' }
+        );
+
+        // Description animation
+        gsap.fromTo('.hero-description',
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, delay: 0.6, ease: 'power2.out' }
+        );
+
+        // CTA buttons animation
+        gsap.fromTo('.hero-cta',
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, delay: 0.8, ease: 'power2.out' }
+        );
+
+        // Stats counter
+        const stats = heroRef.current?.querySelectorAll('.stat');
+        stats?.forEach((stat, index) => {
+            const numberEl = stat.querySelector('.stat-number');
+            const text = numberEl?.textContent || '0';
+            const numberMatch = text.match(/(\d+)/);
+            const targetNumber = numberMatch ? parseInt(numberMatch[1]) : 0;
+            const suffix = text.replace(/\d+/, '');
+
+            gsap.fromTo(stat,
+                { y: 20, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: 'power3.out',
-                    delay: 0.2
+                    duration: 0.6,
+                    delay: 1.0 + (index * 0.1),
+                    ease: 'power2.out'
                 }
             );
 
-            // Badge animation
-            gsap.fromTo('.hero-badge',
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.6, delay: 0.1, ease: 'power2.out' }
-            );
-
-            // Description animation
-            gsap.fromTo('.hero-description',
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.8, delay: 0.6, ease: 'power2.out' }
-            );
-
-            // CTA buttons animation
-            gsap.fromTo('.hero-cta',
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.6, delay: 0.8, ease: 'power2.out' }
-            );
-
-            // Stats counter
-            const stats = heroRef.current?.querySelectorAll('.stat');
-            stats?.forEach((stat, index) => {
-                const numberEl = stat.querySelector('.stat-number');
-                const text = numberEl?.textContent || '0';
-                const numberMatch = text.match(/(\d+)/);
-                const targetNumber = numberMatch ? parseInt(numberMatch[1]) : 0;
-                const suffix = text.replace(/\d+/, '');
-
-                gsap.fromTo(stat,
-                    { y: 20, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.6,
-                        delay: 1.0 + (index * 0.1),
-                        ease: 'power2.out'
-                    }
-                );
-
-                ScrollTrigger.create({
-                    trigger: stat,
-                    start: 'top 95%',
-                    once: true,
-                    onEnter: () => {
-                        const counter = { val: 0 };
-                        gsap.to(counter, {
-                            val: targetNumber,
-                            duration: 2,
-                            ease: 'power2.out',
-                            onUpdate: () => {
-                                if (numberEl) {
-                                    numberEl.textContent = Math.floor(counter.val) + suffix;
-                                }
-                            }
-                        });
-                    }
-                });
-            });
-
-            // Scroll parallax for background only
             ScrollTrigger.create({
-                trigger: heroRef.current,
-                start: 'top top',
-                end: 'bottom top',
-                scrub: true,
-                onUpdate: (self) => {
-                    const progress = self.progress;
-                    gsap.set('.hero-bg-image img', { y: progress * 50 });
+                trigger: stat,
+                start: 'top 95%',
+                once: true,
+                onEnter: () => {
+                    const counter = { val: 0 };
+                    gsap.to(counter, {
+                        val: targetNumber,
+                        duration: 2,
+                        ease: 'power2.out',
+                        onUpdate: () => {
+                            if (numberEl) {
+                                numberEl.textContent = Math.floor(counter.val) + suffix;
+                            }
+                        }
+                    });
                 }
             });
+        });
 
-        }, heroRef);
+        // Scroll parallax for background only
+        ScrollTrigger.create({
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+            onUpdate: (self) => {
+                const progress = self.progress;
+                gsap.set('.hero-bg-image img', { y: progress * 50 });
+            }
+        });
 
-        return () => ctx.revert();
-    }, []);
+    }, { scope: heroRef });
 
     return (
         <section className="hero" id="home" ref={heroRef}>
