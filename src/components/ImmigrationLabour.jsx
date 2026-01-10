@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const ImmigrationLabour = () => {
@@ -10,6 +11,12 @@ const ImmigrationLabour = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Immigration & Labour Services UAE"
+                description="Complete visa and labour card processing in Dubai. Work permits, quotas, offer letters, employee visas, family sponsorship, and MOHRE registration services."
+                keywords="UAE work visa, labour card Dubai, work permit UAE, employee visa Dubai, family sponsorship, MOHRE services, employment visa Dubai"
+                url="/immigration-labour"
+            />
             <Navbar />
 
             <main className="gv-main">

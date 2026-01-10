@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const LicenceRenewal = () => {
@@ -10,6 +11,12 @@ const LicenceRenewal = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Trade License Renewal Services Dubai"
+                description="Hassle-free trade license renewals in Dubai. We monitor expiries and manage the complete renewal process for mainland and freezone businesses. Avoid fines and penalties."
+                keywords="license renewal Dubai, trade license renewal, DED renewal, freezone license renewal, ejari renewal, business license UAE"
+                url="/licence-renewal"
+            />
             <Navbar />
 
             <main className="gv-main">

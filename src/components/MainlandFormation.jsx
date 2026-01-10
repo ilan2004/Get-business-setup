@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const MainlandFormation = () => {
@@ -10,6 +11,12 @@ const MainlandFormation = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Mainland Company Formation in Dubai - 100% Ownership"
+                description="Establish your mainland company in Dubai with 100% foreign ownership. DED registration, trade license, LLC formation, and complete business setup support. 3-10 days processing."
+                keywords="mainland company Dubai, DED license, Dubai mainland business, 100% ownership UAE, LLC formation Dubai, trade license Dubai, company registration UAE"
+                url="/mainland-formation"
+            />
             <Navbar />
 
             <main className="gv-main">

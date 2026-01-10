@@ -1,6 +1,7 @@
 import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import Lenis from 'lenis'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -43,10 +44,13 @@ function SmoothScrollProvider({ children }) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <SmoothScrollProvider>
-        <App />
-      </SmoothScrollProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <SmoothScrollProvider>
+          <App />
+        </SmoothScrollProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   </StrictMode>,
 )
+

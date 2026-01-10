@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const CorporatePro = () => {
@@ -10,6 +11,12 @@ const CorporatePro = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="PRO Services Dubai - Document Clearing"
+                description="Professional PRO services for government liaisons, document clearing, attestation, and corporate compliance in UAE. Cost-efficient outsourced PRO solutions."
+                keywords="PRO services Dubai, document clearing UAE, attestation services, government liaison, Emirates ID services, labor card services"
+                url="/corporate-pro"
+            />
             <Navbar />
 
             <main className="gv-main">

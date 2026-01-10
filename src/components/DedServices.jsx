@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const DedServices = () => {
@@ -10,6 +11,12 @@ const DedServices = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="DED Services Dubai - Economic Department"
+                description="Complete DED services including trade name registration, activity approval, initial approval, instant license, and license amendments in Dubai. Expert guidance."
+                keywords="DED services Dubai, economic department, trade name Dubai, activity license UAE, instant license Dubai, DET services"
+                url="/ded-services"
+            />
             <Navbar />
 
             <main className="gv-main">

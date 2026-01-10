@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const FreezoneOffshore = () => {
@@ -10,6 +11,12 @@ const FreezoneOffshore = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Free Zone & Offshore Company Setup Dubai"
+                description="Tax-exempt free zone and offshore company formation in UAE. DMCC, JAFZA, SHAMS, IFZA, RAKEZ setup with 100% foreign ownership. Choose from 40+ free zones with expert guidance."
+                keywords="freezone company Dubai, offshore company UAE, tax free business Dubai, DMCC, JAFZA, SHAMS, IFZA, RAKEZ, free zone license"
+                url="/freezone-offshore"
+            />
             <Navbar />
 
             <main className="gv-main">

@@ -1,7 +1,56 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
+
+// FAQ Schema for rich snippets
+const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "Can I work for any company with a Golden Visa?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, Golden Visa holders can work for any employer in the UAE or be self-employed."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Do I need to live in the UAE to keep the Golden Visa?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, you can stay outside the UAE for more than 6 months without your visa being cancelled."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I sponsor my parents with a Golden Visa?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, you can sponsor your parents for a 10-year residency."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is the UAE Golden Visa renewable?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, it is automatically renewable as long as the eligibility conditions are met."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the cost of UAE Golden Visa?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The cost varies depending on the category, medical insurance, and application channel. It includes government filing fees, medical test fees, and Emirates ID fees."
+            }
+        }
+    ]
+};
 
 const GoldenVisa = () => {
     useEffect(() => {
@@ -10,8 +59,15 @@ const GoldenVisa = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="UAE Golden Visa Services - 10-Year Residency"
+                description="Get your 10-year UAE Golden Visa with expert assistance. We handle investor visas, professional visas, and long-term residency applications in Dubai. Complete guide for eligibility, documents & process."
+                keywords="golden visa Dubai, UAE 10 year visa, investor visa UAE, long term residency Dubai, golden visa requirements, UAE residency visa, golden visa cost Dubai"
+                url="/golden-visa"
+                structuredData={faqStructuredData}
+            />
             <Navbar />
-            
+
             <main className="gv-main">
                 <div className="gv-container">
                     <article className="gv-content">

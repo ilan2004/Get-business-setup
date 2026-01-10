@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://getbusinesssetup.ae/sitemap.xml
+
+# Disallow development/build files
+Disallow: /assets/*.js.map

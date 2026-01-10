@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const DubaiCourts = () => {
@@ -10,6 +11,12 @@ const DubaiCourts = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Dubai Courts Services - Legal Documentation"
+                description="Document notarization, legal attestations, power of attorney, MOA notarization, and Dubai Courts services for businesses and individuals. E-Notary available."
+                keywords="Dubai courts services, legal notarization UAE, power of attorney Dubai, attestation Dubai, MOA notarization, e-notary services"
+                url="/dubai-courts"
+            />
             <Navbar />
 
             <main className="gv-main">

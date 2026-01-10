@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 import './GoldenVisa.css';
 
 const BusinessConsulting = () => {
@@ -10,6 +11,12 @@ const BusinessConsulting = () => {
 
     return (
         <div className="golden-visa-page">
+            <SEO
+                title="Business Consulting Services Dubai"
+                description="Strategic business consulting for market entry, feasibility studies, and operational optimization in the UAE. Expert guidance for startups, SMEs, and foreign investors."
+                keywords="business consulting Dubai, market entry UAE, feasibility study, business strategy Dubai, corporate structuring, startup consulting UAE"
+                url="/business-consulting"
+            />
             <Navbar />
 
             <main className="gv-main">

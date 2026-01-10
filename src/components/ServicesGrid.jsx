@@ -297,12 +297,12 @@ const ServicesGrid = () => {
                     top: '10%',
                     left: '50%',
                     transform: 'translate(-50%, 0)',
-                    textAlign: 'center',
                     zIndex: 5,
-                    width: '100%'
-                }} className="services-grid-header">
-                    <span className="section-label" style={{ display: 'block', color: 'var(--primary)', marginBottom: '1rem' }}>Our Expertise</span>
-                    <h1 style={{ fontSize: '3rem', margin: 0, color: '#1a1a1a', textShadow: '0 2px 10px rgba(255,255,255,0.8)' }}>Comprehensive Solutions for Your Business</h1>
+                    width: 'auto', // Changed from 100% to auto to fit the glass box
+                    maxWidth: '90%'
+                }} className="services-grid-header glass-header">
+                    <span className="section-label" style={{ display: 'block', color: 'var(--primary)', marginBottom: '0.5rem' }}>Our Expertise</span>
+                    <h1 style={{ fontSize: '3rem', margin: 0, color: '#1a1a1a' }}>Comprehensive Solutions for Your Business</h1>
                 </div>
 
                 {services.map((service, index) => (
