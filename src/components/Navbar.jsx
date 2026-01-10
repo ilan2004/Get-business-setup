@@ -1,17 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
 import './Navbar.css';
 
 const Navbar = ({ onCalculatorOpen }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(true);
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
+        // Initial entrance animation
+        const ctx = gsap.context(() => {
+            gsap.fromTo(".navbar",
+                { y: -100, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power4.out",
+                    delay: 0.1
+                }
+            );
+        });
+
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            const currentScrollY = window.scrollY;
+
+            // Determine scroll direction
+            if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+                // Scrolling down & not at the very top
+                setIsVisible(false);
+            } else {
+                // Scrolling up
+                setIsVisible(true);
+            }
+
+            lastScrollY.current = currentScrollY;
+            setIsScrolled(currentScrollY > 50);
         };
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            ctx.revert();
+        };
     }, []);
 
     const toggleMenu = () => {
@@ -29,7 +63,7 @@ const Navbar = ({ onCalculatorOpen }) => {
     ];
 
     return (
-        <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isVisible ? 'navbar-hidden' : ''}`}>
             <div className="navbar-container">
                 {/* Logo */}
                 <Link to="/" className="navbar-logo">

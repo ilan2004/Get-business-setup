@@ -1,6 +1,7 @@
 import Hero from './Hero';
 import About from './About';
-import Services from './Services';
+import ServicesGrid from './ServicesGrid';
+import Process from './Process';
 import WhyChooseUs from './WhyChooseUs';
 import Partners from './Partners';
 import Contact from './Contact';
@@ -10,7 +11,8 @@ const Home = () => {
         <>
             <Hero />
             <About />
-            <Services />
+            <ServicesGrid />
+            <Process />
             <WhyChooseUs />
             <Partners />
             <Contact />
@@ -19,3 +21,4 @@ const Home = () => {
 };
 
 export default Home;
+

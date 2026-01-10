@@ -1,0 +1,202 @@
+/* ServiceCard3D.css */
+
+/* Container for the 3D cards section */
+.sc-cards-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    /* Or specific background if needed */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.sc-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.sc-card-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 260px;
+    perspective: 1000px;
+    cursor: pointer;
+    will-change: transform, left;
+}
+
+.sc-card-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    /* Floating animation can be disturbing with many cards, keeping it subtle or removing if issues arise */
+    animation: sc-floating 3s infinite ease-in-out;
+}
+
+/* Stagger floating animations based on child index if possible, 
+   but since we map them, we might need inline styles for delay or nth-child */
+.sc-card-container:nth-child(odd) .sc-card-wrapper {
+    animation-delay: 0s;
+}
+
+.sc-card-container:nth-child(even) .sc-card-wrapper {
+    animation-delay: 1.5s;
+}
+
+
+.sc-flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.sc-flip-card-front,
+.sc-flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    /* Added shadow for depth */
+}
+
+.sc-flip-card-front {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sc-card-red .sc-flip-card-front {
+    background: var(--gradient-secondary);
+}
+
+.sc-card-blue .sc-flip-card-front {
+    background: var(--gradient-primary);
+}
+
+.sc-flip-card-back {
+    padding: 2rem;
+    background-color: #fff;
+    /* Light theme back for contrast */
+    color: #1a1a1a;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Content Styling */
+.sc-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    /* White icon */
+}
+
+.sc-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.3;
+    color: #ffffff;
+}
+
+.sc-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.sc-btn {
+    padding: 0.8rem 1.5rem;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.sc-btn:hover {
+    transform: scale(1.05);
+    background: #000;
+}
+
+@keyframes sc-floating {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, -60%);
+    }
+
+    /* Reduced movement range */
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .sc-card-container {
+        width: 140px;
+        /* Reduced width for 2 columns */
+        height: 200px;
+        /* Reduced height */
+    }
+
+    .sc-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0.5rem;
+    }
+
+    .sc-title {
+        font-size: 1rem;
+    }
+
+    .sc-flip-card-front {
+        padding: 1rem;
+    }
+
+    .sc-flip-card-back {
+        padding: 1rem;
+    }
+
+    .sc-description {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .sc-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

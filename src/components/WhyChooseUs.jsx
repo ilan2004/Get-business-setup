@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './WhyChooseUs.css';
 
 const WhyChooseUs = () => {
     const sectionRef = useRef(null);
-    const [isPaused, setIsPaused] = useState(false);
 
     const reasons = [
         {
@@ -38,128 +39,120 @@ const WhyChooseUs = () => {
         },
     ];
 
-    // Duplicate cards for infinite scroll effect
-    const allCards = [...reasons, ...reasons, ...reasons];
-
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+        const ctx = gsap.context(() => {
+            // Text section animations
+            gsap.fromTo('.why-label',
+                { x: -30, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: '.why-text-section',
+                        start: 'top 80%',
                     }
-                });
-            },
-            { threshold: 0.1 }
-        );
+                }
+            );
 
-        const elements = sectionRef.current?.querySelectorAll('.animate-why');
-        elements?.forEach((el) => observer.observe(el));
+            gsap.fromTo('.why-title',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: 0.1,
+                    scrollTrigger: {
+                        trigger: '.why-text-section',
+                        start: 'top 80%',
+                    }
+                }
+            );
 
-        return () => observer.disconnect();
+            gsap.fromTo('.why-description',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: 0.2,
+                    scrollTrigger: {
+                        trigger: '.why-text-section',
+                        start: 'top 75%',
+                    }
+                }
+            );
+
+            gsap.fromTo('.why-cta',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: 0.3,
+                    scrollTrigger: {
+                        trigger: '.why-text-section',
+                        start: 'top 70%',
+                    }
+                }
+            );
+
+            // Cards staggered entrance with rotation
+            const cards = gsap.utils.toArray('.why-card');
+            cards.forEach((card, index) => {
+                gsap.fromTo(card,
+                    {
+                        y: 80,
+                        opacity: 0,
+                        rotateX: 15,
+                        scale: 0.9
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        rotateX: 0,
+                        scale: 1,
+                        duration: 0.7,
+                        delay: index * 0.1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: '.why-cards-section',
+                            start: 'top 80%',
+                        }
+                    }
+                );
+            });
+
+            // Icon animation on each card
+            cards.forEach((card, index) => {
+                const icon = card.querySelector('.card-icon');
+                gsap.fromTo(icon,
+                    { scale: 0, rotate: -180 },
+                    {
+                        scale: 1,
+                        rotate: 0,
+                        duration: 0.5,
+                        delay: 0.3 + (index * 0.1),
+                        ease: 'back.out(1.7)',
+                        scrollTrigger: {
+                            trigger: '.why-cards-section',
+                            start: 'top 80%',
+                        }
+                    }
+                );
+            });
+
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
-
-    // Auto-scroll logic for cards with infinite loop
-    useEffect(() => {
-        const slider = document.querySelector('.why-cards');
-        if (!slider) return;
-
-        let intervalId;
-        let currentIndex = reasons.length; // Start at middle set
-
-        // Initial scroll to middle set
-        const cards = slider.querySelectorAll('.why-card');
-        if (cards.length > 0) {
-            const card = cards[currentIndex];
-            const cardLeft = card.offsetLeft;
-            const cardWidth = card.offsetWidth;
-            const sliderWidth = slider.offsetWidth;
-            const scrollPosition = cardLeft - (sliderWidth / 2) + (cardWidth / 2);
-            slider.scrollTo({ left: scrollPosition, behavior: 'auto' });
-        }
-
-        const autoScroll = () => {
-            if (isPaused) return;
-
-            const cards = slider.querySelectorAll('.why-card');
-            if (cards.length === 0) return;
-
-            currentIndex++;
-            
-            // Reset to middle set when reaching end of second set
-            if (currentIndex >= reasons.length * 2) {
-                currentIndex = reasons.length;
-            }
-            
-            // Calculate position to center the card
-            const card = cards[currentIndex];
-            const cardLeft = card.offsetLeft;
-            const cardWidth = card.offsetWidth;
-            const sliderWidth = slider.offsetWidth;
-            const scrollPosition = cardLeft - (sliderWidth / 2) + (cardWidth / 2);
-            
-            slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-        };
-
-        intervalId = setInterval(autoScroll, 2500);
-
-        return () => clearInterval(intervalId);
-    }, [isPaused, reasons.length]);
-
-    const scrollLeft = () => {
-        const slider = document.querySelector('.why-cards');
-        if (!slider) return;
-        
-        const cards = slider.querySelectorAll('.why-card');
-        const sliderWidth = slider.offsetWidth;
-        
-        // Find the currently centered card
-        let currentIndex = 0;
-        cards.forEach((card, index) => {
-            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-            const sliderCenter = slider.scrollLeft + (sliderWidth / 2);
-            if (Math.abs(cardCenter - sliderCenter) < card.offsetWidth) {
-                currentIndex = index;
-            }
-        });
-        
-        // Scroll to previous card
-        const prevIndex = currentIndex > 0 ? currentIndex - 1 : cards.length - 1;
-        const card = cards[prevIndex];
-        const scrollPosition = card.offsetLeft - (sliderWidth / 2) + (card.offsetWidth / 2);
-        slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-    };
-
-    const scrollRight = () => {
-        const slider = document.querySelector('.why-cards');
-        if (!slider) return;
-        
-        const cards = slider.querySelectorAll('.why-card');
-        const sliderWidth = slider.offsetWidth;
-        
-        // Find the currently centered card
-        let currentIndex = 0;
-        cards.forEach((card, index) => {
-            const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-            const sliderCenter = slider.scrollLeft + (sliderWidth / 2);
-            if (Math.abs(cardCenter - sliderCenter) < card.offsetWidth) {
-                currentIndex = index;
-            }
-        });
-        
-        // Scroll to next card
-        const nextIndex = (currentIndex + 1) % cards.length;
-        const card = cards[nextIndex];
-        const scrollPosition = card.offsetLeft - (sliderWidth / 2) + (card.offsetWidth / 2);
-        slider.scrollTo({ left: scrollPosition, behavior: 'smooth' });
-    };
 
     return (
         <section className="why-choose-us" id="why-us" ref={sectionRef}>
             <div className="why-container">
                 {/* Text Section */}
                 <div className="why-text-section">
-                    <div className="why-text animate-why">
+                    <div className="why-text">
                         <div className="why-label">
                             <span className="label-line"></span>
                             <span>Why Choose Us</span>
@@ -193,26 +186,13 @@ const WhyChooseUs = () => {
                     </div>
                 </div>
 
-                {/* Cards Section with Horizontal Scroll */}
+                {/* Cards Section - Simplified Grid Layout */}
                 <div className="why-cards-section">
-                    <div className="why-cards-wrapper">
-                        {/* Navigation Arrows */}
-                        <button className="nav-btn left" onClick={scrollLeft} aria-label="Scroll Left">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M15 18l-6-6 6-6" />
-                            </svg>
-                        </button>
-                        <div 
-                            className="why-cards"
-                            onMouseEnter={() => setIsPaused(true)}
-                            onMouseLeave={() => setIsPaused(false)}
-                            onClick={() => setIsPaused(!isPaused)}
-                        >
-                            {allCards.map((reason, index) => (
+                    <div className="why-cards-grid">
+                        {reasons.map((reason, index) => (
                             <div
                                 key={index}
-                                className="why-card animate-why"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                className="why-card"
                             >
                                 <div className="card-icon">{reason.icon}</div>
                                 <div className="card-content">
@@ -221,12 +201,6 @@ const WhyChooseUs = () => {
                                 </div>
                             </div>
                         ))}
-                        </div>
-                        <button className="nav-btn right" onClick={scrollRight} aria-label="Scroll Right">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <path d="M9 18l6-6-6-6" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>

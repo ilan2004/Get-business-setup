@@ -25,14 +25,11 @@
 /* Image Section */
 .about-image-wrapper {
     position: relative;
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    /* GSAP handles animation */
 }
 
 .about-image-wrapper.visible {
-    opacity: 1;
-    transform: translateX(0);
+    /* GSAP handles animation */
 }
 
 .about-image-main {
@@ -97,14 +94,11 @@
 
 /* Content Section */
 .about-content {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    /* GSAP handles animation */
 }
 
 .about-content.visible {
-    opacity: 1;
-    transform: translateX(0);
+    /* GSAP handles animation */
 }
 
 .about-label {
@@ -230,13 +224,13 @@
     color: var(--color-gray-700);
 }
 
-/* Animation */
+/* Animation classes - GSAP handles now */
 .animate-about {
-    opacity: 0;
+    /* GSAP handles animation */
 }
 
 .animate-about.visible {
-    opacity: 1;
+    /* GSAP handles animation */
 }
 
 /* Responsive */

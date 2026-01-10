@@ -231,9 +231,32 @@ a {
   border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   overflow: hidden;
+  will-change: transform, box-shadow;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+.btn svg {
+  transition: transform 0.3s ease;
 }
 
 .btn-primary {
@@ -243,8 +266,12 @@ a {
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(0, 48, 135, 0.3);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 48, 135, 0.35);
+}
+
+.btn-primary:hover svg {
+  transform: translateX(3px);
 }
 
 .btn-secondary {
@@ -254,8 +281,12 @@ a {
 }
 
 .btn-secondary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(227, 24, 55, 0.3);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(227, 24, 55, 0.35);
+}
+
+.btn-secondary:hover svg {
+  transform: translateX(3px);
 }
 
 .btn-outline {
@@ -267,6 +298,7 @@ a {
 .btn-outline:hover {
   background: var(--color-primary);
   color: var(--color-white);
+  transform: translateY(-3px);
 }
 
 .btn-white {

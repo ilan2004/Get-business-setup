@@ -1,25 +1,171 @@
 import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './About.css';
 
 const About = () => {
     const sectionRef = useRef(null);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+        const ctx = gsap.context(() => {
+            // Image wrapper animation with parallax
+            gsap.fromTo('.about-image-main',
+                {
+                    y: 80,
+                    opacity: 0,
+                    scale: 0.9
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 75%',
                     }
-                });
-            },
-            { threshold: 0.2 }
-        );
+                }
+            );
 
-        const elements = sectionRef.current?.querySelectorAll('.animate-about');
-        elements?.forEach((el) => observer.observe(el));
+            // Accent image animation
+            gsap.fromTo('.about-image-accent',
+                {
+                    x: -60,
+                    opacity: 0,
+                    scale: 0.8
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    delay: 0.3,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 75%',
+                    }
+                }
+            );
 
-        return () => observer.disconnect();
+            // Experience badge pop animation
+            gsap.fromTo('.about-experience',
+                {
+                    scale: 0,
+                    opacity: 0
+                },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.6,
+                    delay: 0.5,
+                    ease: 'back.out(1.7)',
+                    scrollTrigger: {
+                        trigger: sectionRef.current,
+                        start: 'top 70%',
+                    }
+                }
+            );
+
+            // Content section animations
+            gsap.fromTo('.about-label',
+                { x: -30, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    scrollTrigger: {
+                        trigger: '.about-content',
+                        start: 'top 80%',
+                    }
+                }
+            );
+
+            gsap.fromTo('.about-title',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    delay: 0.1,
+                    scrollTrigger: {
+                        trigger: '.about-content',
+                        start: 'top 80%',
+                    }
+                }
+            );
+
+            // Staggered text paragraphs
+            gsap.fromTo('.about-text',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    stagger: 0.15,
+                    scrollTrigger: {
+                        trigger: '.about-content',
+                        start: 'top 75%',
+                    }
+                }
+            );
+
+            // Vision section
+            gsap.fromTo('.about-vision',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    scrollTrigger: {
+                        trigger: '.about-vision',
+                        start: 'top 85%',
+                    }
+                }
+            );
+
+            // Features grid with stagger
+            gsap.fromTo('.feature',
+                {
+                    y: 30,
+                    opacity: 0,
+                    scale: 0.9
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.about-features',
+                        start: 'top 85%',
+                    }
+                }
+            );
+
+            // Parallax effect on images
+            ScrollTrigger.create({
+                trigger: sectionRef.current,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+                onUpdate: (self) => {
+                    const progress = self.progress;
+                    gsap.set('.about-image-main img', {
+                        y: progress * 40
+                    });
+                    gsap.set('.about-image-accent img', {
+                        y: progress * -30
+                    });
+                }
+            });
+
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     return (
@@ -27,7 +173,7 @@ const About = () => {
             <div className="about-container">
                 <div className="about-grid">
                     {/* Left - Image */}
-                    <div className="about-image-wrapper animate-about">
+                    <div className="about-image-wrapper">
                         <div className="about-image-main">
                             <img
                                 src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80"
@@ -47,7 +193,7 @@ const About = () => {
                     </div>
 
                     {/* Right - Content */}
-                    <div className="about-content animate-about" style={{ animationDelay: '0.2s' }}>
+                    <div className="about-content">
                         <div className="about-label">
                             <span className="label-line"></span>
                             <span>About Us</span>
